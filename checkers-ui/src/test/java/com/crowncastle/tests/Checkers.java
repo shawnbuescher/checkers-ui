@@ -46,13 +46,11 @@ public class Checkers {
     @Test
     public void checkers5Moves() throws InterruptedException {
 
-        //Get a list of rows on the board
-        List<WebElement> row = driver.findElements(By.xpath(".//*[@id=\"board\"]/div"));
+        WebElement board = driver.findElement(By.id("board"));
         WebElement message = driver.findElement(By.id("message"));
-        String messageText = message.getText();
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.textToBePresentInElement(message, "Select an orange piece to move."));
+        wait.until(ExpectedConditions.visibilityOf(board));
 
         //Spaces with my pieces have src=you1.gif
         //Space with their pieces have src=me1.gif
@@ -62,7 +60,7 @@ public class Checkers {
         driver.findElement(By.name("space22")).click();
         driver.findElement(By.name("space13")).click();
         Thread.sleep(5000);
-        //wait.until(ExpectedConditions.textToBePresentInElement(message,"Make a move.")); //Not working consistently
+        wait.until(ExpectedConditions.textToBePresentInElement(message,"Make a move.")); //Not working consistently
 
         //Move 2
         driver.findElement(By.name("space62")).click();
